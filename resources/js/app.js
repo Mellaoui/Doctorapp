@@ -8,11 +8,14 @@ import { InertiaApp } from '@inertiajs/inertia-vue';
 import { InertiaForm } from 'laravel-jetstream';
 import PortalVue from 'portal-vue';
 
+
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
-Vue.component('pagination', require('laravel-vue-pagination'));
+
+
+
 
 
 const app = document.getElementById('app');

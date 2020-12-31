@@ -75,23 +75,15 @@
              
 
              <div v-if="toggleModal" class="absolute inset-0 z-100 opacity-25 bg-black justify-center"></div>
-
-                    <div  v-if="toggleModal" class="carousel relative shadow-2xl bg-white">
-                        
+                <div v-for=" (consultation, propretyName) of consultations" class="timeline">
+                    <div class="container right">
+                        <div class="content">
+                            <a>{{consultation.title}}</a>
+                            <p>{{consultation.description}}</p>
+                        </div>
                     </div>
-                 </div>  
-             
-         
-     
-
-        <div v-for=" (consultation, propretyName) of consultations" class="timeline">
-            <div class="container right">
-                <div class="content">
-                    <a>{{consultation.title}}</a>
-                    <p>{{consultation.description}}</p>
                 </div>
-            </div>
-        </div>
+>
     </app-layout>
 </template>
      <style>
@@ -262,6 +254,7 @@
         </style>
         <script>
             import AppLayout from '@/Layouts/AppLayout'
+            
 
             export default {
 
@@ -271,6 +264,7 @@
                     },
                 components: {
                     AppLayout,  
+                    
                 },
                 data(){
 

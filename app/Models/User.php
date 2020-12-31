@@ -71,9 +71,16 @@ class User extends \TCG\Voyager\Models\User
 
     }
 
+    public function twittes(){
+        return $this->hasMany(Twitte::class);
+    }
+
     protected static function booted()
     {
         static::addGlobalScope(new TenantScope);
     }
+
+
+   
     
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-gray-100">
-        <nav class="bg-white border-b border-gray-100">
+        <nav class="bg-gray-800 text-gray-100 border-b border-gray-100">
             <!-- Primary Navigation Menu -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
@@ -8,17 +8,17 @@
                         <!-- Logo -->
                         <div class="flex-shrink-0 flex items-center">
                             <inertia-link :href="route('dashboard')">
-                                
+                          
                             </inertia-link>
                         </div>
 
                         <!-- Navigation Links -->
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex  text-gray-100 ">
                             <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                 Dashboard
                             </jet-nav-link>
                             <jet-nav-link :href="route('statistics')" :active="route().current('statistics')">
-                                Statistics
+                               Documentation
                             </jet-nav-link>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                         <img class="h-8 w-8 rounded-full object-cover" :src="$page.user.profile_photo_url" :alt="$page.user.name" />
                                     </button>
 
-                                    <button v-else class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <button v-else class="flex items-center text-sm font-medium text-gray-100 hover:text-gray-400 hover:border-gray-300 focus:outline-none focus:text-gray-400 focus:border-gray-300 transition duration-150 ease-in-out">
                                         <div><b>{{ $page.user.name }}</b></div>
                                     
                                         <div class="ml-1">
@@ -219,6 +219,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+   
 
     export default {
         components: {
@@ -227,6 +228,7 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
+            
         },
 
         data() {

@@ -14,29 +14,29 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg">
                    <div class="flex flex-col">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                           <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             
-                              <table class="min-w-full divide-y divide-gray-200">
+                              <table class="min-w-full divide-y divide-gray-200 bg-blue-700">
                                 <thead>
                                   <tr>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 bg-gray-700 text-left text-xs font-bold text-gray-50 uppercase tracking-wider">
                                       Name
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 bg-gray-700 text-left text-xs font-bold text-gray-50 uppercase tracking-wider">
                                       Title
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 bg-gray-700 text-left text-xs font-bold text-gray-50 uppercase tracking-wider">
                                       Phone
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 bg-gray-700 text-left text-xs font-bold text-gray-50 uppercase tracking-wider">
                                       Age
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                      <button @click="toggleModal = true , scrollTop()"  class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full">Create patient</button>
+                                    <th scope="col" class="px-6 py-3 bg-gray-700">
+                                      <Button @click.native="showModal"  class="modal-open bg-transparent border border-gray-50 hover:border-indigo-500 text-gray-50 hover:text-indigo-500 font-bold py-2 px-4 rounded-full">Create patient</Button>
                                       </a>
                                     </th>
                                   </tr>
@@ -121,9 +121,7 @@
                                       </nav>
                                     </div>
                                   </div>
-                                </div>
-                              
-                             
+                                </div>                          
                             </div>
                           </div>
                         </div>
@@ -131,54 +129,47 @@
                 </div>
             </div>
         </div>
-        <div v-if="toggleModal" class="absolute inset-0 z-40 opacity-25 bg-black"> </div>
-        <div v-if="toggleModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
-            <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
-                 <div  class="shadow-lg w-full bg-white rounded-lg p-8">
-                    <div class="flex justify-end mb-6">
-                        <button  @click="toggleModal=false" >
-                            <span class="mr-2">X</span>
-                            <span>
-                                <i class="fa fa-times"></i>
-                            </span>
-                        </button>
-                    </div>
-                        <h1 class="text-center text-2xl text-green-dark">New Patient</h1>
 
-                        <form @submit.prevent="submit" class="pt-6 pb-2 my-2">
-                            <div class="mb-4">
-                                <label class="block text-sm font-bold mb-2" for="name">
-                                    Name
-                                </label>
-                                <input v-model="form.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="name" type="text" placeholder="Patient name">
-                            </div>
-                            <div class="mb-6">
-                                <label class="block text-sm font-bold mb-2" for="phone">
-                                    Phone
-                                </label>
-                                <input v-model="form.phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-3" id="phone"  placeholder="Phone">
-                            </div>
-                            <div class="block md:flex items-center justify-between">
-                                <div>
-                                    <button class="rounded bg-green-500 text-white px-6 mt-1 py-4" type="submit">
-                                        Create
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-          </div>
-       
+        <Footer/>
+
+          <!--Post Modal--> 
+
+         <jet-dialog-modal :show="show" @close="show = false">
+            <template #title>
+              Create New Post
+            </template>
+            <template #content>
+             
+                 <div class="w-full mb-10">
+                   <div class="mb-4">
+                      <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
+                        Username
+                      </label>
+                       <input  v-model="form.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="name" type="text" placeholder="Name">
+                   </div>    
+                    <input v-model="form.phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="phone" type="number" placeholder="Phone"> 
+                 </div>
+               
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click.native="submit" :disabled="form.processing">
+                        Submit
+                </jet-secondary-button>
+            </template>
          
-
+         </jet-dialog-modal>
+       
     </app-layout>
 </template>
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     //import Welcome from '@/Jetstream/Welcome'
+    import Footer from '@/Jetstream/Footer'
+    import JetDialogModal from '@/Jetstream/DialogModal'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import Button from '@/Jetstream/Button'
 
  
   export default {
@@ -190,13 +181,18 @@
             },
         components: {
             AppLayout,  
+            Footer,
+            JetDialogModal,
+            Button,
+            JetSecondaryButton,
+
         },
 
         data(){
           return{
         
             search:'',
-            toggleModal:false,
+            show:false,
 
             form:{
                    
@@ -211,8 +207,15 @@
        
 
         methods:{
+          showModal(){
+
+            this.show = true;
+
+          },
+
+
            scrollTop(){
-                         
+                     window.scrollTo(0, 0);    
                     },
           submit(){
 
@@ -221,8 +224,8 @@
               data.append('phone', this.form.phone|| '')
 
               this.$inertia.post(this.route('create'),data)
-
-              this.form.reset();
+              
+              this.show = false
                 
             },
 
