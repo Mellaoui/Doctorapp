@@ -74,187 +74,106 @@
             </div>
              
 
-             <div v-if="toggleModal" class="absolute inset-0 z-100 opacity-25 bg-black justify-center"></div>
-                <div v-for=" (consultation, propretyName) of consultations" class="timeline">
-                    <div class="container right">
-                        <div class="content">
-                            <a>{{consultation.title}}</a>
-                            <p>{{consultation.description}}</p>
+           
+
+                <div v-for=" (consultation, propretyName) of consultations" class="w-full md:w-3/5 mx-auto p-8">
+                    
+                    <div class="shadow-md">
+                        <div class="tab w-full overflow-hidden border-t">
+                            <input class="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2">
+                            <label class="block p-5 leading-normal cursor-pointer" for="tab-single-one">{{consultation.title}}</label>
+                            <div  class="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                                <p class="p-5">{{consultation.description}}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>    
+
 >
     </app-layout>
 </template>
      <style>
 
-     .carousel-open:checked + .carousel-item {
-				position: static;
-				opacity: 100;
-			}
-			.carousel-item {
-				-webkit-transition: opacity 0.6s ease-out;
-				transition: opacity 0.6s ease-out;
-			}
-			#carousel-1:checked ~ .control-1,
-			#carousel-2:checked ~ .control-2,
-			#carousel-3:checked ~ .control-3 {
-				display: block;
-			}
-			.carousel-indicators {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-				position: absolute;
-				bottom: 2%;
-				left: 0;
-				right: 0;
-				text-align: center;
-				z-index: 10;
-			}
-			#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
-			#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-			#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
-				color: #2b6cb0;  /*Set to match the Tailwind colour you want the active one to be */
-			}
-        * {
-            box-sizing: border-box;
-            }
+
+        /* Tab content - closed */
+         .tab-content {
+         max-height: 0;
+         -webkit-transition: max-height .35s;
+         -o-transition: max-height .35s;
+         transition: max-height .35s;
+         }
+         /* :checked - resize to full height */
+         .tab input:checked ~ .tab-content {
+         max-height: 100vh;
+         }
+         /* Label formatting when open */
+         .tab input:checked + label{
+         /*@apply text-xl p-5 border-l-2 border-indigo-500 bg-gray-100 text-indigo*/
+         font-size: 1.25rem; /*.text-xl*/
+         padding: 1.25rem; /*.p-5*/
+         border-left-width: 2px; /*.border-l-2*/
+         border-color: #6574cd; /*.border-indigo*/
+         background-color: #f8fafc; /*.bg-gray-100 */
+         color: #6574cd; /*.text-indigo*/
+         }
+         /* Icon */
+         .tab label::after {
+         float:right;
+         right: 0;
+         top: 0;
+         display: block;
+         width: 1.5em;
+         height: 1.5em;
+         line-height: 1.5;
+         font-size: 1.25rem;
+         text-align: center;
+         -webkit-transition: all .35s;
+         -o-transition: all .35s;
+         transition: all .35s;
+         }
+         /* Icon formatting - closed */
+         .tab input[type=checkbox] + label::after {
+         content: "+";
+         font-weight:bold; /*.font-bold*/
+         border-width: 1px; /*.border*/
+         border-radius: 9999px; /*.rounded-full */
+         border-color: #b8c2cc; /*.border-grey*/
+         }
+         .tab input[type=radio] + label::after {
+         content: "\25BE";
+         font-weight:bold; /*.font-bold*/
+         border-width: 1px; /*.border*/
+         border-radius: 9999px; /*.rounded-full */
+         border-color: #b8c2cc; /*.border-grey*/
+         }
+         /* Icon formatting - open */
+         .tab input[type=checkbox]:checked + label::after {
+         transform: rotate(315deg);
+         background-color: #6574cd; /*.bg-indigo*/
+         color: #f8fafc; /*.text-grey-lightest*/
+         }
+         .tab input[type=radio]:checked + label::after {
+         transform: rotateX(180deg);
+         background-color: #6574cd; /*.bg-indigo*/
+         color: #f8fafc; /*.text-grey-lightest*/
+         }
+
+     
+		
+		
+        
 
             /* Set a background color */
             body {
             background-color: #19529C;
             font-family: Helvetica, sans-serif;
             }
-
-            /* The actual timeline (the vertical ruler) */
-            .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            }
-
-            /* The actual timeline (the vertical ruler) */
-            .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: white;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            }
-
-            /* Container around content */
-            .container {
-            padding: 10px 50px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            }
-
-            /* The circles on the timeline */
-            .container::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -17px;
-            background-color: #61D4E8;
-            border: 4px solid #2DA1E7;
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-            }
-
-            /* Place the container to the left */
-            .left {
-            left: 0;
-            }
-
-            /* Place the container to the right */
-            .right {
-            left: 50%;
-            }
-
-            /* Add arrows to the left container (pointing right) */
-            .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid white;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-            }
-
-            /* Add arrows to the right container (pointing left) */
-            .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-            }
-
-            /* Fix the circle for containers on the right side */
-            .right::after {
-            left: -16px;
-            }
-
-            /* The actual content */
-            .content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 6px;
-            }
-
-            /* Media queries - Responsive timeline on screens less than 600px wide */
-            @media screen and (max-width: 600px) {
-            /* Place the timelime to the left */
-            .timeline::after {
-                left: 31px;
-            }
-
-            /* Full-width containers */
-            .container {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            /* Make sure that all arrows are pointing leftwards */
-            .container::before {
-                left: 60px;
-                border: medium solid white;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
-            }
-
-            /* Make sure all circles are at the same spot */
-            .left::after, .right::after {
-                left: 15px;
-            }
-
-            /* Make all right containers behave like the left ones */
-            .right {
-                left: 0%;
-            }
-            }
+    
         </style>
         <script>
             import AppLayout from '@/Layouts/AppLayout'
             
+
 
             export default {
 
@@ -270,7 +189,7 @@
 
                     return{
 
-                        toggleModal: false,
+                        hide: false,
                         form:{                   
                             title: null,
                             description:null
@@ -299,6 +218,8 @@
                     },
                 
                 }
+
+                
 
                 
             }

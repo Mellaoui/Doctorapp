@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\Patient;
 use App\Models\Twitte;
+use App\Models\User;
 
 //use Auth;
 
@@ -22,8 +23,10 @@ use App\Models\Twitte;
 */
 
 Route::get('/', function () {
-   return view('landing');
-})->name('landing');
+
+    $twittes = Twitte::latest()->paginate(5);
+    return Inertia::render('Guest',['twittes' => $twittes]);
+})->name('Guest');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -35,9 +38,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/statistics', function () {
     $id = auth()->id();
+
+    $users = User::latest()->take(5)->get();
     $twittes = Twitte::latest()->where('user_id',$id)->paginate(5);
     //dd($twittes);
-    return Inertia::render('Statistics',['twittes' => $twittes]);
+    return Inertia::render('Statistics',['twittes' => $twittes , 'users'=>$users]);
 
 })->name('statistics');
 
